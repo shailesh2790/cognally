@@ -1,0 +1,18 @@
+{
+    "builds": [
+        {
+            "src": "psych_ui.py",
+            "use": "@vercel/python",
+            "config": {
+                "maxLambdaSize": "250mb",
+                "runtime": "python3.9"
+            }
+        }
+    ],
+    "routes": [
+        {
+            "src": "/(.*)",
+            "dest": "psych_ui.py"
+        }
+    ]
+} 

@@ -1,7 +1,7 @@
 from typing import Dict, Any
 from dotenv import load_dotenv
-from langchain.schema import HumanMessage, AIMessage, SystemMessage
-from langchain.chat_models import ChatOpenAI
+from langchain_core.messages import HumanMessage, AIMessage, SystemMessage
+from langchain_openai import ChatOpenAI
 
 # Load environment variables
 load_dotenv()

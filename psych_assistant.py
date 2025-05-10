@@ -27,7 +27,7 @@ def process_task(state: Dict) -> Dict:
             SystemMessage(content=f"You are a professional content writer for psychologists. Create {content_type} content that is engaging, credible, and tailored for mental health professionals. Be specific and use a warm, expert tone."),
             HumanMessage(content=f"Topic: {topic}")
         ]
-        model = ChatOpenAI(temperature=0.7)
+        model = ChatOpenAI(temperature=0.7, model="gpt-3.5-turbo")
         response = model.invoke(messages)
         state['result'] = response.content
         
@@ -38,7 +38,7 @@ def process_task(state: Dict) -> Dict:
             SystemMessage(content=f"You are an expert psychologist writing a {email_type} email to a client. Be clear, compassionate, and professional. Use a warm, supportive tone."),
             HumanMessage(content=f"Details: {details}")
         ]
-        model = ChatOpenAI(temperature=0.5)
+        model = ChatOpenAI(temperature=0.5, model="gpt-3.5-turbo")
         response = model.invoke(messages)
         state['result'] = response.content
         
@@ -48,7 +48,7 @@ def process_task(state: Dict) -> Dict:
             SystemMessage(content="You are a research assistant for a psychologist. Summarize the latest research and best practices on the given topic. Be concise, evidence-based, and cite reputable sources if possible."),
             HumanMessage(content=f"Topic: {topic}")
         ]
-        model = ChatOpenAI(temperature=0.3)
+        model = ChatOpenAI(temperature=0.3, model="gpt-3.5-turbo")
         response = model.invoke(messages)
         state['result'] = response.content
     

@@ -1,4 +1,4 @@
-from typing import Dict, TypedDict, List, Optional
+from typing import Dict, List, Optional, Any
 from dotenv import load_dotenv
 from langchain.schema import HumanMessage, AIMessage, SystemMessage
 from langchain_openai import ChatOpenAI
@@ -7,17 +7,10 @@ from langgraph.graph import StateGraph, END, START
 # Load environment variables
 load_dotenv()
 
-# Define state
-class PsychState(TypedDict):
-    messages: List
-    task: Optional[str]
-    topic: Optional[str]
-    content_type: Optional[str]
-    email_type: Optional[str]
-    details: Optional[str]
-    result: Optional[str]
+# Define state as a simple dictionary type
+StateType = Dict[str, Any]
 
-def process_task(state: Dict) -> Dict:
+def process_task(state: StateType) -> StateType:
     task = state.get('task')
     
     if task == '1':  # Content generation
@@ -55,7 +48,7 @@ def process_task(state: Dict) -> Dict:
     return state
 
 def build_graph():
-    graph = StateGraph(PsychState)
+    graph = StateGraph(StateType)
     graph.add_node('process_task', process_task)
     graph.set_entry_point('process_task')
     graph.add_edge('process_task', END)

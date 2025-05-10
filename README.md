@@ -36,4 +36,4 @@ This app is deployed on Streamlit Cloud. You can access it at: [Your Streamlit C
 
 ## Contributing
 
-Feel free to submit issues and enhancement requests! 
+Feel free to submit issues and enhancement requests!

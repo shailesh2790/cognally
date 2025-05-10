@@ -1,16 +1,12 @@
-from typing import Dict, List, Optional, Any
+from typing import Dict, Any
 from dotenv import load_dotenv
 from langchain.schema import HumanMessage, AIMessage, SystemMessage
-from langchain_openai import ChatOpenAI
-from langgraph.graph import StateGraph, END, START
+from langchain.chat_models import ChatOpenAI
 
 # Load environment variables
 load_dotenv()
 
-# Define state as a simple dictionary type
-StateType = Dict[str, Any]
-
-def process_task(state: StateType) -> StateType:
+def process_task(state: Dict[str, Any]) -> Dict[str, Any]:
     task = state.get('task')
     
     if task == '1':  # Content generation
@@ -47,16 +43,12 @@ def process_task(state: StateType) -> StateType:
     
     return state
 
-def build_graph():
-    graph = StateGraph(StateType)
-    graph.add_node('process_task', process_task)
-    graph.set_entry_point('process_task')
-    graph.add_edge('process_task', END)
-    return graph.compile()
+def process_request(state: Dict[str, Any]) -> Dict[str, Any]:
+    """Simple wrapper function to process requests"""
+    return process_task(state)
 
 if __name__ == "__main__":
-    # Test the graph
-    app = build_graph()
+    # Test the function
     test_state = {
         "messages": [],
         "task": "1",
@@ -65,5 +57,5 @@ if __name__ == "__main__":
         "email_type": None,
         "details": None
     }
-    result = app.invoke(test_state)
+    result = process_request(test_state)
     print(result["result"]) 

@@ -1,5 +1,5 @@
 import streamlit as st
-from psych_assistant import build_graph
+from psych_assistant import process_request
 import os
 from dotenv import load_dotenv
 
@@ -8,7 +8,7 @@ load_dotenv()
 
 # Initialize session state
 if 'app' not in st.session_state:
-    st.session_state.app = build_graph()
+    st.session_state.app = process_request
 
 st.title("Psychologist Assistant")
 st.write("Generate content, draft emails, and get research summaries")
@@ -57,7 +57,7 @@ if st.button("Generate"):
        (task == "3" and state["topic"]):
         
         with st.spinner("Generating..."):
-            result = st.session_state.app.invoke(state)
+            result = st.session_state.app(state)
             st.write("### Result:")
             st.write(result["result"])
     else:
@@ -65,4 +65,4 @@ if st.button("Generate"):
 
 # Add a footer
 st.markdown("---")
-st.markdown("Built with Streamlit and LangGraph")
+st.markdown("Built with Streamlit and LangChain")
